@@ -49,7 +49,6 @@ static void lowPowerSleep(uint32_t sleeptime)
 ///////////////////////////////////////////////////
 
 void setup() {
-  // initialize the button pin as an input:
   for (int i = 0; i < sensorNumber ; i++) {
     pinMode(sensorList[i], INPUT);
   }
