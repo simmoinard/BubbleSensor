@@ -18,7 +18,7 @@ int sensorCounter = 0;   // counter for the number of button presses
 int sensorState = 0;         // current state of the button
 int lastSensorState = 0;     // previous state of the button
 unsigned long myTime = 0;
-int sensorValues[] = {0, 0, 0};
+uint8_t sensorValues[] = {0, 0, 0};
 
 static uint8_t counter=0;
 uint8_t lora_data[3];
@@ -49,6 +49,8 @@ static void lowPowerSleep(uint32_t sleeptime)
 ///////////////////////////////////////////////////
 
 void setup() {
+  pinMode(GPIO4, OUTPUT);
+  digitalWrite(GPIO4, LOW);
   for (int i = 0; i < sensorNumber ; i++) {
     pinMode(sensorList[i], INPUT);
   }
