@@ -85,6 +85,7 @@ void loop() {
   counter++; 
   delay(10);
   Serial.println("----- Hello World ! -----");
+  digitalWrite(GPIO4,HIGH);
   //For each sensor :
   for (int i = 0; i < sensorNumber ; i++) {
 
@@ -132,6 +133,8 @@ void loop() {
     Serial.print(" . ");
   }
   Serial.println("End of acquisition.");
+  digitalWrite(GPIO4,LOW);
+
   //Now send the data. The parameters are "data size, data pointer, port, request ack"
   Serial.printf("\nSending packet with counter=%d\n", counter);
   Serial.printf("\nValue to send : %d\n", lora_data[1]);
