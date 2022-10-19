@@ -21,7 +21,7 @@ unsigned long myTime = 0;
 uint8_t sensorValues[] = {0, 0, 0};
 
 static uint8_t counter=0;
-uint8_t lora_data[3];
+uint8_t lora_data[sensorNumber+1];
 uint8_t downlink ;
 
 //Some utilities for going into low power mode
@@ -85,6 +85,11 @@ void loop() {
   counter++; 
   delay(10);
   Serial.println("----- Hello World ! -----");
+  
+  uint8_t voltage = getBatteryVoltage()/50; //Tension en %
+  Serial.printf("\nHello ! Voltage : %d\n", voltage);
+  lora_data[0] = voltage;
+  
   digitalWrite(GPIO4,HIGH);
   //For each sensor :
   for (int i = 0; i < sensorNumber ; i++) {
@@ -126,18 +131,30 @@ void loop() {
     sensorState = 0;         // current state of the button
     lastSensorState = 0;     // previous state of the button
   }
-  Serial.println("sensorValues : ");
+  Serial.print("sensorValues : ");
   for (int i = 0; i < sensorNumber ; i++) {
-    lora_data[i]=sensorValues[i];
+    lora_data[i+1]=sensorValues[i];
     Serial.print(sensorValues[i]);
     Serial.print(" . ");
   }
+  Serial.println(" ");
   Serial.println("End of acquisition.");
+  
   digitalWrite(GPIO4,LOW);
+  Serial.println(" ");
+  Serial.println("Values to send :");
 
+  for(int i = 0; i < sizeof(lora_data); i++)
+  {
+    Serial.print(i);
+    Serial.print(" : ");
+    Serial.print(lora_data[i]);
+    Serial.print("   ");
+
+  }
+  
   //Now send the data. The parameters are "data size, data pointer, port, request ack"
   Serial.printf("\nSending packet with counter=%d\n", counter);
-  Serial.printf("\nValue to send : %d\n", lora_data[1]);
 
   //Here we send confirmed packed (ACK requested) only for the first two (remember there is a fair use policy)
   bool requestack=counter<2?true:false;
