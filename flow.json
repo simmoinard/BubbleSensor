@@ -1,1 +1,101 @@
-[{"id":"8d3af88e147c4dc1","type":"tab","label":"Flow 1","disabled":false,"info":"","env":[]},{"id":"ed77f678fcbfb844","type":"mqtt in","z":"8d3af88e147c4dc1","name":"MQTT TTN","topic":"v3/bubble-sensors@ttn/devices/bubbles-sensor-2/up","qos":"2","datatype":"auto-detect","broker":"b1ab6697bc3c696f","nl":false,"rap":true,"rh":0,"inputs":0,"x":330,"y":200,"wires":[["7e42f1b41b6c88fc"]]},{"id":"7e42f1b41b6c88fc","type":"function","z":"8d3af88e147c4dc1","name":"function 1","func":"var message = {\n    \"id\": msg.payload.end_device_ids.device_id,\n    \"name\": 'test 2',\n    \"batterie\": msg.payload.uplink_message.decoded_payload.bytes[0],\n    \"bubble1\": msg.payload.uplink_message.decoded_payload.bytes[1],\n    \"bubble2\": msg.payload.uplink_message.decoded_payload.bytes[2],\n    \"bubble3\": msg.payload.uplink_message.decoded_payload.bytes[3]\n};\n\nmsg.payload = message;\nreturn msg;","outputs":1,"noerr":0,"initialize":"","finalize":"","libs":[],"x":480,"y":200,"wires":[["1a4b350798868871"]]},{"id":"1a4b350798868871","type":"influxdb out","z":"8d3af88e147c4dc1","influxdb":"be466659b4a70d96","name":"influx","measurement":"expe","precision":"","retentionPolicy":"","database":"database","precisionV18FluxV20":"ms","retentionPolicyV18Flux":"","org":"organisation","bucket":"bucket","x":610,"y":200,"wires":[]},{"id":"b1ab6697bc3c696f","type":"mqtt-broker","name":"","broker":"eu1.cloud.thethings.network","port":"1883","clientid":"","autoConnect":true,"usetls":false,"protocolVersion":"4","keepalive":"60","cleansession":true,"birthTopic":"","birthQos":"0","birthPayload":"","birthMsg":{},"closeTopic":"","closeQos":"0","closePayload":"","closeMsg":{},"willTopic":"","willQos":"0","willPayload":"","willMsg":{},"userProps":"","sessionExpiry":""},{"id":"be466659b4a70d96","type":"influxdb","hostname":"localhost","port":"8086","protocol":"http","database":"bulles","name":"","usetls":false,"tls":"","influxdbVersion":"1.x","url":"http://localhost:8086","rejectUnauthorized":true}]
+[
+    {
+        "id": "ed77f678fcbfb844",
+        "type": "mqtt in",
+        "z": "8d3af88e147c4dc1",
+        "name": "MQTT TTN",
+        "topic": "v3/bubble-sensors@ttn/devices/bubbles-sensor-2/up",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "b1ab6697bc3c696f",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 330,
+        "y": 200,
+        "wires": [
+            [
+                "7e42f1b41b6c88fc"
+            ]
+        ]
+    },
+    {
+        "id": "7e42f1b41b6c88fc",
+        "type": "function",
+        "z": "8d3af88e147c4dc1",
+        "name": "function 1",
+        "func": "var message = {\n    \"id\": msg.payload.end_device_ids.device_id,\n    \"name\": 'test 2',\n    \"batterie\": msg.payload.uplink_message.decoded_payload.bytes[0],\n    \"bubble1\": msg.payload.uplink_message.decoded_payload.bytes[1],\n    \"bubble2\": msg.payload.uplink_message.decoded_payload.bytes[2],\n    \"bubble3\": msg.payload.uplink_message.decoded_payload.bytes[3]\n};\n\nmsg.payload = message;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 200,
+        "wires": [
+            [
+                "1a4b350798868871"
+            ]
+        ]
+    },
+    {
+        "id": "1a4b350798868871",
+        "type": "influxdb out",
+        "z": "8d3af88e147c4dc1",
+        "influxdb": "be466659b4a70d96",
+        "name": "influx",
+        "measurement": "expe",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "organisation",
+        "bucket": "bucket",
+        "x": 610,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "b1ab6697bc3c696f",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "eu1.cloud.thethings.network",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "be466659b4a70d96",
+        "type": "influxdb",
+        "hostname": "localhost",
+        "port": "8086",
+        "protocol": "http",
+        "database": "bulles",
+        "name": "",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "1.x",
+        "url": "http://localhost:8086",
+        "rejectUnauthorized": true
+    }
+]
